@@ -18,7 +18,8 @@
     "dev": "webpack --progress --colors --watch"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "author": "KazanExpress",
   "license": "MIT",
