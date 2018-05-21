@@ -57,7 +57,7 @@ export default class Siema {
       loop: false,
       rtl: false,
       onInit: () => {},
-      onChange: () => {},
+      onChange: () => {}
     };
 
     const userSttings = options;
@@ -113,7 +113,7 @@ export default class Siema {
       this.selector.addEventListener('mousemove', this.mousemoveHandler);
 
       // Click
-      this.selector.addEventListener('click', this.clickHandler);
+      this.selector.addEventListener('click', this.clickHandler, true);
     }
   }
 
@@ -575,6 +575,7 @@ export default class Siema {
     // prevent browsers from folowing the link
     if (this.drag.preventClick) {
       e.preventDefault();
+      e.stopPropagation();
     }
     this.drag.preventClick = false;
   }
