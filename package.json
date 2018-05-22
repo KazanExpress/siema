@@ -3,7 +3,6 @@
   "version": "2.0.7",
   "description": "Lghtweight and simple carousel with no dependencies",
   "main": "dist/siema.min.js",
-  "module": "src/siema.js",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
