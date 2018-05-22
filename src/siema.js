@@ -46,7 +46,7 @@ export default class Siema {
    */
   static mergeSettings(options) {
     const settings = {
-      autoplay: true,
+      autoplay: false,
       autoplayDuration: 6000,
       selector: '.siema',
       duration: 200,
@@ -140,7 +140,9 @@ export default class Siema {
    * Starts autoplay
    */
   startAutoplay() {
-    this.autoplayIntervalInstace = setInterval(this.next, this.config.autoplayDuration);
+    this.autoplayIntervalInstace = setInterval(() => {
+      this.next();
+    }, this.config.autoplayDuration);
   }
 
 
