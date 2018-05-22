@@ -46,6 +46,8 @@ export default class Siema {
    */
   static mergeSettings(options) {
     const settings = {
+      autoplay: true,
+      autoplayDuration: 6000,
       selector: '.siema',
       duration: 200,
       easing: 'ease-out',
@@ -135,6 +137,24 @@ export default class Siema {
 
 
   /**
+   * Starts autoplay
+   */
+  startAutoplay() {
+    this.autoplayIntervalInstace = setInterval(this.settings.autoplayDuration, () => {
+      this.next();
+    })
+  }
+
+
+  /**
+   * Stops autoplay
+   */
+  stopAutoplay() {
+    clearInterval(this.autoplayIntervalInstace);
+  }
+
+
+  /**
    * Builds the markup and attaches listeners to required events.
    */
   init() {
@@ -148,6 +168,11 @@ export default class Siema {
 
     // build a frame and slide to a currentSlide
     this.buildSliderFrame();
+
+    // create an interval instance for autoplay
+    if (this.settings.autoplay) {
+      this.startAutoplay();
+    }
 
     this.config.onInit.call(this);
   }
