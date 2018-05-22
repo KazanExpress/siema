@@ -8,7 +8,7 @@ export default class Siema {
    */
   constructor(options) {
     // Merge defaults with user's settings
-    this.config = Siema.mergeSettings(options);
+    this.config = this.mergeSettings(options);
 
     // Resolve selector's type
     this.selector = typeof this.config.selector === 'string' ? document.querySelector(this.config.selector) : this.config.selector;
@@ -27,7 +27,7 @@ export default class Siema {
     this.currentSlide = this.config.loop ?
       this.config.startIndex % this.innerElements.length :
       Math.max(0, Math.min(this.config.startIndex, this.innerElements.length - this.perPage));
-    this.transformProperty = Siema.webkitOrNot();
+    this.transformProperty = this.webkitOrNot();
 
     // Bind all event handlers for referencability
     ['resizeHandler', 'touchstartHandler', 'touchendHandler', 'touchmoveHandler', 'mousedownHandler', 'mouseupHandler', 'mouseleaveHandler', 'mousemoveHandler', 'clickHandler'].forEach(method => {
@@ -44,7 +44,7 @@ export default class Siema {
    * @param {Object} options - Optional settings object.
    * @returns {Object} - Custom Siema settings.
    */
-  static mergeSettings(options) {
+  mergeSettings(options) {
     const settings = {
       autoplay: false,
       autoplayDuration: 6000,
@@ -78,7 +78,7 @@ export default class Siema {
    * Google Chrome since version 26 supports prefix-less transform
    * @returns {string} - Transform property supported by client.
    */
-  static webkitOrNot() {
+  webkitOrNot() {
     const style = document.documentElement.style;
     if (typeof style.transform === 'string') {
       return 'transform';
