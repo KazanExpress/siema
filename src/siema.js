@@ -142,7 +142,7 @@ export default class Siema {
   startAutoplay() {
     this.autoplayIntervalInstace = setInterval(this.settings.autoplayDuration, () => {
       this.next();
-    })
+    });
   }
 
 
