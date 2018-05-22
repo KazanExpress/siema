@@ -141,7 +141,9 @@ export default class Siema {
    */
   startAutoplay() {
     this.autoplayIntervalInstace = setInterval(() => {
-      !this.pointerDown && this.next();
+      if (!this.pointerDown) {
+        this.next();
+      }
     }, this.config.autoplayDuration);
   }
 
@@ -159,7 +161,9 @@ export default class Siema {
    */
   restartAutoplay() {
     this.stopAutoplay();
-    this.config.loop && this.config.autoplay && this.startAutoplay();
+    if (this.config.loop && this.config.autoplay) {
+      this.startAutoplay();
+    }
   }
 
 
