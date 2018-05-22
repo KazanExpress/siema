@@ -49,6 +49,8 @@ export default class Siema {
       autoplay: false,
       autoplayDuration: 6000,
       selector: '.siema',
+      slideWrapperClass: 'slide-wrapper',
+      sliderFrameClass: 'slider-frame',
       duration: 200,
       easing: 'ease-out',
       perPage: 1,
@@ -198,6 +200,7 @@ export default class Siema {
 
     // Create frame and apply styling
     this.sliderFrame = document.createElement('div');
+    this.sliderFrame.classList.add(this.config.sliderFrameClass);
     this.sliderFrame.style.width = `${widthItem * itemsToBuild}px`;
     this.enableTransition();
 
@@ -239,6 +242,7 @@ export default class Siema {
 
   buildSliderFrameItem(elm) {
     const elementContainer = document.createElement('div');
+    elementContainer.classList.add(this.config.slideWrapperClass);
     elementContainer.style.cssFloat = this.config.rtl ? 'right' : 'left';
     elementContainer.style.float = this.config.rtl ? 'right' : 'left';
     elementContainer.style.width = `${this.config.loop ? 100 / (this.innerElements.length + (this.perPage * 2)) : 100 / (this.innerElements.length)}%`;
