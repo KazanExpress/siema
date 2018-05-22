@@ -141,7 +141,7 @@ export default class Siema {
    */
   startAutoplay() {
     this.autoplayIntervalInstace = setInterval(() => {
-      this.next();
+      !this.pointerDown && this.next();
     }, this.config.autoplayDuration);
   }
 
@@ -151,6 +151,15 @@ export default class Siema {
    */
   stopAutoplay() {
     clearInterval(this.autoplayIntervalInstace);
+  }
+
+
+  /**
+   * Restarts autoplay counter
+   */
+  restartAutoplay() {
+    this.stopAutoplay();
+    this.config.loop && this.config.autoplay && this.startAutoplay();
   }
 
 
@@ -170,9 +179,7 @@ export default class Siema {
     this.buildSliderFrame();
 
     // create an interval instance for autoplay
-    if (this.config.loop && this.config.autoplay) {
-      this.startAutoplay();
-    }
+    this.restartAutoplay();
 
     this.config.onInit.call(this);
   }
@@ -265,6 +272,8 @@ export default class Siema {
       return;
     }
 
+    this.restartAutoplay();
+
     const beforeChange = this.currentSlide;
 
     if (this.config.loop) {
@@ -309,6 +318,8 @@ export default class Siema {
     if (this.innerElements.length <= this.perPage) {
       return;
     }
+
+    this.restartAutoplay();
 
     const beforeChange = this.currentSlide;
 
@@ -417,6 +428,8 @@ export default class Siema {
 
     const slideToNegativeClone = movement > 0 && this.currentSlide - howManySliderToSlide < 0;
     const slideToPositiveClone = movement < 0 && this.currentSlide + howManySliderToSlide > this.innerElements.length - this.perPage;
+
+    this.restartAutoplay();
 
     if (movement > 0 && movementDistance > this.config.threshold && this.innerElements.length > this.perPage) {
       this.prev(howManySliderToSlide);
