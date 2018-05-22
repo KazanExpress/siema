@@ -140,9 +140,7 @@ export default class Siema {
    * Starts autoplay
    */
   startAutoplay() {
-    this.autoplayIntervalInstace = setInterval(this.config.autoplayDuration, () => {
-      this.next();
-    });
+    this.autoplayIntervalInstace = setInterval(this.next, this.config.autoplayDuration);
   }
 
 
@@ -170,7 +168,7 @@ export default class Siema {
     this.buildSliderFrame();
 
     // create an interval instance for autoplay
-    if (this.config.autoplay) {
+    if (this.config.loop && this.config.autoplay) {
       this.startAutoplay();
     }
 
