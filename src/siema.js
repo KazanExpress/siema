@@ -60,8 +60,10 @@ export default class Siema {
       threshold: 20,
       loop: false,
       rtl: false,
-      onInit: () => {},
-      onChange: () => {}
+      onInit: () => { },
+      onChange: () => { },
+      onSwipeDown: () => { },
+      onSwipeUp: () => { }
     };
 
     const userSttings = options;
@@ -439,6 +441,12 @@ export default class Siema {
 
     this.restartAutoplay();
 
+    if (Math.abs(this.drag.startY - this.drag.endY) > Math.abs(this.drag.startX - this.drag.endX)) {
+      const events = ['onSwipeDown', 'onSwipeUp'];
+      this.config[events[+(this.drag.startY > this.drag.endY)]].call(this);
+      return true;
+    }
+
     if (movement > 0 && movementDistance > this.config.threshold && this.innerElements.length > this.perPage) {
       this.prev(howManySliderToSlide);
     }
@@ -446,6 +454,7 @@ export default class Siema {
       this.next(howManySliderToSlide);
     }
     this.slideToCurrent(slideToNegativeClone || slideToPositiveClone);
+    return true;
   }
 
 
@@ -475,6 +484,7 @@ export default class Siema {
     this.drag = {
       startX: 0,
       endX: 0,
+      endY: 0,
       startY: 0,
       letItGo: null,
       preventClick: this.drag.preventClick
@@ -506,7 +516,7 @@ export default class Siema {
     e.stopPropagation();
     this.pointerDown = false;
     this.enableTransition();
-    if (this.drag.endX) {
+    if (this.drag.endX || this.drag.endY) {
       this.updateAfterDrag();
     }
     this.clearDrag();
@@ -523,9 +533,14 @@ export default class Siema {
       this.drag.letItGo = Math.abs(this.drag.startY - e.touches[0].pageY) < Math.abs(this.drag.startX - e.touches[0].pageX);
     }
 
+    if (this.pointerDown) {
+      this.drag.endY = e.touches[0].pageY;
+      this.drag.endX = e.touches[0].pageX;
+      e.preventDefault();
+    }
+
     if (this.pointerDown && this.drag.letItGo) {
       e.preventDefault();
-      this.drag.endX = e.touches[0].pageX;
       this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
       this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
 
@@ -552,6 +567,7 @@ export default class Siema {
     e.stopPropagation();
     this.pointerDown = true;
     this.drag.startX = e.pageX;
+    this.drag.startY = e.pageY;
   }
 
 
@@ -563,7 +579,7 @@ export default class Siema {
     this.pointerDown = false;
     this.selector.style.cursor = '-webkit-grab';
     this.enableTransition();
-    if (this.drag.endX) {
+    if (this.drag.endX || this.drag.endY) {
       this.updateAfterDrag();
     }
     this.clearDrag();
@@ -589,6 +605,8 @@ export default class Siema {
       } while (target !== null);
 
       this.drag.endX = e.pageX;
+      this.drag.endY = e.pageY;
+
       this.selector.style.cursor = '-webkit-grabbing';
       this.sliderFrame.style.webkitTransition = `all 0ms ${this.config.easing}`;
       this.sliderFrame.style.transition = `all 0ms ${this.config.easing}`;
@@ -610,6 +628,7 @@ export default class Siema {
       this.pointerDown = false;
       this.selector.style.cursor = '-webkit-grab';
       this.drag.endX = e.pageX;
+      this.drag.endY = e.pageY;
       this.drag.preventClick = false;
       this.enableTransition();
       this.updateAfterDrag();
