@@ -24,7 +24,7 @@ yarn add siema
 ```
 
 ```js
-import Siema from 'siema';
+import Siema from 'ke-siema';
 new Siema();
 ```
 
