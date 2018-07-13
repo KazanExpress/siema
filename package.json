@@ -1,6 +1,6 @@
 {
   "name": "ke-siema",
-  "version": "2.0.11",
+  "version": "2.0.12",
   "description": "Lghtweight and simple carousel with no dependencies",
   "main": "dist/siema.min.js",
   "devDependencies": {
