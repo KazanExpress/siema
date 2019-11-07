@@ -63,7 +63,8 @@ export default class Siema {
       onInit: () => { },
       onChange: () => { },
       onSwipeDown: () => { },
-      onSwipeUp: () => { }
+      onSwipeUp: () => { },
+      onSlideClick: () => { }
     };
 
     const userSttings = options;
@@ -576,6 +577,9 @@ export default class Siema {
    */
   mouseupHandler(e) {
     e.stopPropagation();
+    if (this.drag.endX === 0) {
+      this.config.onSlideClick();
+    }
     this.pointerDown = false;
     this.selector.style.cursor = '-webkit-grab';
     this.enableTransition();
