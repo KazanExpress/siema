@@ -60,6 +60,8 @@ export default class Siema {
       threshold: 20,
       loop: false,
       rtl: false,
+      ignoreVertical: false,
+      ignoreHorizontal: false,
       onInit: () => { },
       onChange: () => { },
       onSwipeDown: () => { },
@@ -532,6 +534,14 @@ export default class Siema {
 
     if (this.drag.letItGo === null) {
       this.drag.letItGo = Math.abs(this.drag.startY - e.touches[0].pageY) < Math.abs(this.drag.startX - e.touches[0].pageX);
+    }
+
+    if (!this.drag.letItGo && this.config.ignoreVertical) {
+      return;
+    }
+
+    if (this.drag.letItGo && this.config.ignoreHorizontal) {
+      return;
     }
 
     if (this.pointerDown) {
