@@ -516,7 +516,7 @@ export default class Siema {
    * touchend event handler
    */
   touchendHandler(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
     this.pointerDown = false;
     this.enableTransition();
     if (this.drag.endX || this.drag.endY) {
@@ -530,7 +530,7 @@ export default class Siema {
    * touchmove event handler
    */
   touchmoveHandler(e) {
-    e.stopPropagation();
+    // e.stopPropagation();
 
     if (this.drag.letItGo === null) {
       this.drag.letItGo = Math.abs(this.drag.startY - e.touches[0].pageY) < Math.abs(this.drag.startX - e.touches[0].pageX);
