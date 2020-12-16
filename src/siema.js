@@ -504,8 +504,8 @@ export default class Siema {
     if (ignoreSiema) {
       return;
     }
-
-    e.stopPropagation();
+    console.log('hello from event');
+    // e.stopPropagation();
     this.pointerDown = true;
     this.drag.startX = e.touches[0].pageX;
     this.drag.startY = e.touches[0].pageY;
