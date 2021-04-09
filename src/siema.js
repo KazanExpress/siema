@@ -588,7 +588,7 @@ export default class Siema {
   mouseupHandler(e) {
     e.stopPropagation();
     if (this.drag.endX === 0) {
-      this.config.onSlideClick();
+      this.config.onSlideClick(e);
     }
     this.pointerDown = false;
     this.selector.style.cursor = '-webkit-grab';
